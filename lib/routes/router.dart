@@ -6,7 +6,7 @@ import 'package:bookface/routes/routes.dart';
 import 'package:bookface/splash.dart';
 import "package:flutter/material.dart";
 
-class Router {
+class Routerr {
   static Route<dynamic> generateRoute(RouteSettings routesettings) {
     switch (routesettings.name) {
       case Routes.main:
