@@ -8,6 +8,8 @@ class AddBooks extends StatefulWidget {
 
 class _AddBooksState extends State<AddBooks> {
   final _formKey = GlobalKey<FormState>();
+  String title = "", description = "", imgurl = "";
+  int i;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +35,7 @@ class _AddBooksState extends State<AddBooks> {
                         return null;
                       },
                       onSaved: (String value) {
-                        products.add(
-                          Product(
-                              title: "AA",
-                              id: 9,
-                              description: "BBBB",
-                              image: "https://picsum.photos/200",
-                              color: Color(0xFFAEAEAE)),
-                        );
+                        i = int.parse(value);
                       },
                     ),
                   ),
@@ -53,9 +48,7 @@ class _AddBooksState extends State<AddBooks> {
                 hintText: 'Title',
                 isEmail: true,
                 validator: (String value) {
-                  // if (!validator.isEmail(value)) {
-                  //   return 'Please enter a valid email';
-                  // }
+                  title = value;
                   return null;
                 },
                 onSaved: (String value) {},
@@ -75,19 +68,34 @@ class _AddBooksState extends State<AddBooks> {
 
                   return null;
                 },
-                onSaved: (String value) {},
+                onSaved: (String value) {
+                  description = value;
+                },
               ),
             ),
             MyTextFormField(
               hintText: 'Image URL',
               isPassword: true,
+              onSaved: (String value) {
+                imgurl = value;
+              },
             ),
             RaisedButton(
               color: Colors.blueAccent,
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  print(products);
+                  setState(() {
+                    products.add(
+                      Product(
+                          title: title,
+                          id: i,
+                          description: description,
+                          image: imgurl,
+                          color: Color(0xFFAEAEAE)),
+                    );
+                  });
+
                   Navigator.pop(context);
                 }
               },
